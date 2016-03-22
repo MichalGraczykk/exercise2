@@ -1,16 +1,19 @@
 package wdsr.exercise2.procon;
 
-/**
- * Task: implement Exchange interface without using any *Queue classes from java.util.concurrent package.
- * Any combination of "synchronized", *Lock, *Semaphore, *Condition, *Barrier, *Latch is allowed.
- */
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+
 public class BufferManualImpl implements Buffer {
+	
+	Queue<Order> listOfOrder = new ArrayDeque(100000);
+	
 	public void submitOrder(Order order) throws InterruptedException {
-		// TODO
+		listOfOrder.add(order);
 	}
 	
 	public Order consumeNextOrder() throws InterruptedException {
-		// TODO
-		return null;
+		
+		return listOfOrder.remove();
 	}
 }
