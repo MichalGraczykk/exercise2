@@ -22,11 +22,12 @@ public class BusinessServiceWithExecutor {
 		// TODO Task: execute the logic below using java.util.concurrent.ExecutorService
 		// The ExecutorService should be declared as a field, not a local variable.
 		
-		Runnable task = () -> {
-				long value = helper.findFibonacciValue(n);
-				callback.fibonacciComputed(value);
-		};
-		Thread thread = new Thread(task);
-		thread.start();
+		ExecutorService task = Executors.newFixedThreadPool(2); 
+		
+		task.execute(() -> {
+			long value = helper.findFibonacciValue(n);
+			callback.fibonacciComputed(value);
+		});
+		task.shutdown();
 	}
 }
